@@ -6,3 +6,39 @@ body {
     margin: 0;
     background-color: cadetblue;
 }
+
+header {
+    display: none;
+}
+
+.gallery-container {
+    display: block;
+}
+
+.editor-container {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+}
+
+.editor-container > * {
+    flex: 1;
+}
+
+.editor-img {
+    flex-basis: 50%;
+    background-color: #fff;
+}
+
+.editor-controls {
+    flex-basis: 50%;
+    background-color: lightgrey;
+}
+
+.about {
+    display: none;
+}
+
+footer {
+    display: none;
+}

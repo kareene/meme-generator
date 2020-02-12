@@ -6,9 +6,27 @@
     <title>MEME Generator</title>
     <link rel="stylesheet" href="css/main.css">
 </head>
-<body>
-    <h1>MEME Generator</h1>
-    <script src="js/img-service.js"></script>
+<body onload="onInit()">
+    <header>
+        <h1 class="logo">memegen</h1>
+        <nav class="main-nav-container">
+            <ul>
+                <li>Gallery</li>
+                <li>About</li>
+            </ul>
+        </nav>
+    </header>
+    <section class="gallery-container"></section>
+    <section class="editor-container">
+        <section class="editor-img">
+            <canvas id="meme-canvas" height="300" width="300" style="border: 1px solid black;"></canvas>
+        </section>
+        <section class="editor-controls">
+            <input type="text" name="meme-text" placeholder="Enter first line of meme" onchange="onUpdateMemeText()">
+        </section>
+    </section>
+    <section class="about"></section>
+    <footer></footer>
     <script src="js/meme-service.js"></script>
     <script src="js/main.js"></script>
 </body>
