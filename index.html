@@ -16,13 +16,20 @@
             </ul>
         </nav>
     </header>
-    <section class="gallery-container"></section>
+    <section class="gallery-container">
+        <section class="search"></section>
+        <section class="images-container">
+        </section>
+    </section>
     <section class="editor-container">
         <section class="editor-img">
-            <canvas id="meme-canvas" height="300" width="300" style="border: 1px solid black;"></canvas>
+            <canvas id="meme-canvas" height="300" width="300"></canvas>
         </section>
         <section class="editor-controls">
-            <input type="text" name="meme-text" placeholder="Enter first line of meme" onchange="onUpdateMemeText()">
+            <input type="text" name="meme-text" placeholder="Enter meme text" oninput="onUpdateMemeText()">
+            <input type="color" name="fill-color" onchange="onUpdateFillColor(this.value)">
+            <button onclick="onUpdateTextSize(+5)">+</button>
+            <button onclick="onUpdateTextSize(-5)">-</button>
         </section>
     </section>
     <section class="about"></section>

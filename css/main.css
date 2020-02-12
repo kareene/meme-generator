@@ -12,13 +12,34 @@ header {
 }
 
 .gallery-container {
+    height: 100vh;
+    width: 100vw;
+    padding-left: 50px;
+    padding-right: 50px;
     display: block;
+}
+
+.search {
+    margin-bottom: 30px;
+}
+
+.images-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 160px);
+    grid-auto-rows: 160px;
+    grid-gap: 25px;
+}
+
+.images-container img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
 }
 
 .editor-container {
     height: 100vh;
     width: 100vw;
-    display: flex;
+    display: none;
 }
 
 .editor-container > * {
