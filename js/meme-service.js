@@ -3,10 +3,6 @@
 const NUM_OF_IMGS = 18;
 var gImgs = createImgs();
 
-const DEFAULT_ALIGN = 'left';
-const DEFAULT_SIZE = 30;
-const DEFAULT_COLOR = '#ffffff';
-const DEFAULT_FONT = 'Impact';
 var gMeme;
 
 function createImgs() {
@@ -29,34 +25,39 @@ function getImgsForDisplay() {
     return gImgs;
 }
 
-function createMeme(imgId) {
+function createMeme(imgId, defaultStyle) {
     gMeme = {
         selectedImgId: imgId,
         selectedLineIdx: 0,
         lines: []
     };
-    addMemeLine('top');
-    addMemeLine('bottom');
-}
-
-function addMemeLine(align) {
-    var maxSize = getCanvasSize();
-    var x = maxSize.margin;
-    var y = (align === 'top') ? DEFAULT_SIZE + maxSize.margin :
-        (align === 'bottom') ? maxSize.y - maxSize.margin : maxSize.y / 2;
-    gMeme.lines.push({
-        txt: '',
-        pos: { x, y },
-        size: DEFAULT_SIZE,
-        align: DEFAULT_ALIGN,
-        color: DEFAULT_COLOR,
-        font: DEFAULT_FONT
-    });
-    return gMeme.lines.length - 1;
+    addMemeLine(defaultStyle, 'top');
+    addMemeLine(defaultStyle, 'bottom');
 }
 
 function getMeme() {
     return gMeme;
+}
+
+function addMemeLine(defaultStyle, align) {
+    var maxSize = getCanvasSize();
+    var x = maxSize.margin;
+    var y = (align === 'top') ? defaultStyle.size + maxSize.margin :
+        (align === 'bottom') ? maxSize.y - maxSize.margin : maxSize.y / 2;
+    gMeme.lines.push({
+        txt: '',
+        pos: { x, y },
+        size: defaultStyle.size,
+        align: defaultStyle.align,
+        color: defaultStyle.color,
+        font: defaultStyle.font
+    });
+    return gMeme.lines.length - 1;
+}
+
+function deleteMemeLine() {
+    gMeme.lines.splice(gMeme.selectedLineIdx, 1);
+    changeLine();
 }
 
 function updateMemeText(txt) {
@@ -91,8 +92,10 @@ function updateFillColor(value) {
 }
 
 function changeLine(idx) {
-    if (idx === undefined) {
+    if (idx !== undefined) gMeme.selectedLineIdx = idx;
+    else if (!gMeme.lines.length) gMeme.selectedLineIdx = -1;
+    else {
         gMeme.selectedLineIdx++;
-        if (gMeme.selectedLineIdx === gMeme.lines.length) gMeme.selectedLineIdx = 0;
-    } else gMeme.selectedLineIdx = idx;
+        if (gMeme.selectedLineIdx >= gMeme.lines.length) gMeme.selectedLineIdx = 0;
+    }
 }

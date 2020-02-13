@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEME Generator</title>
+    <title>memegen</title>
     <link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body onload="onInit()">
     <header>
-        <h1 class="logo">memegen</h1>
+        <div class="logo"><img src="icons/logo.png" alt=""></div>
         <nav class="main-nav-container">
             <ul>
                 <li>Gallery</li>
@@ -38,7 +38,8 @@
             <button title="Move Line" onclick="onMoveMemeLine(+5)">&darr;</button>
             <button title="Switch Line" onclick="onChangeLine()">&udarr;</button>
             <button onclick="onAddMemeLine()">Add Line</button>
-            <button onclick="renderMeme('forSave')">Save</button>
+            <button onclick="onDeleteMemeLine()">Delete Line</button>
+            <a href="#" onclick="onDownloadCanvas(this)" download=""><button>Save</button></a>
         </section>
     </section>
     <section class="about"></section>
