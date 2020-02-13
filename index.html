@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MEME Generator</title>
+    <link rel="stylesheet" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body onload="onInit()">
@@ -23,13 +24,21 @@
     </section>
     <section class="editor-container">
         <section class="editor-img">
-            <canvas id="meme-canvas" height="300" width="300"></canvas>
+            <canvas id="meme-canvas" height="300" width="300" onclick="onCanvasClicked(event)"></canvas>
         </section>
         <section class="editor-controls">
-            <input type="text" name="meme-text" placeholder="Enter meme text" oninput="onUpdateMemeText()">
-            <input type="color" name="fill-color" onchange="onUpdateFillColor(this.value)">
-            <button onclick="onUpdateTextSize(+5)">+</button>
-            <button onclick="onUpdateTextSize(-5)">-</button>
+            <input type="text" name="meme-text" placeholder="Enter meme text" oninput="onUpdateMemeText(this.value)">
+            <input title="Text Color" type="color" name="fill-color" onchange="onUpdateFillColor(this.value)">
+            <button title="Text Size" onclick="onUpdateTextSize(+2)">&plus;</button>
+            <button title="Text Size" onclick="onUpdateTextSize(-2)">&minus;</button>
+            <button title="Align Left" onclick="onUpdateTextAlign('left')"><i class="fa fa-align-left" aria-hidden="true"></i></button>
+            <button title="Align Center" onclick="onUpdateTextAlign('center')"><i class="fa fa-align-center" aria-hidden="true"></i></button>
+            <button title="Align Right" onclick="onUpdateTextAlign('right')"><i class="fa fa-align-right" aria-hidden="true"></i></button>
+            <button title="Move Line" onclick="onMoveMemeLine(-5)">&uarr;</button>
+            <button title="Move Line" onclick="onMoveMemeLine(+5)">&darr;</button>
+            <button title="Switch Line" onclick="onChangeLine()">&udarr;</button>
+            <button onclick="onAddMemeLine()">Add Line</button>
+            <button onclick="renderMeme('forSave')">Save</button>
         </section>
     </section>
     <section class="about"></section>
