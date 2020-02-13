@@ -8,12 +8,12 @@
     <link rel="stylesheet" href="css/main.css">
 </head>
 <body onload="onInit()">
-    <header>
-        <div class="logo"><img src="icons/logo.png" alt=""></div>
+    <header class="main-header flex space-between align-center">
+        <div class="logo"><img src="icons/logo.png" alt="memegen logo"></div>
         <nav class="main-nav-container">
-            <ul>
-                <li>Gallery</li>
-                <li>About</li>
+            <ul class="clean-list">
+                <li><a href="#">Gallery</a></li>
+                <li><a href="#">About</a></li>
             </ul>
         </nav>
     </header>
@@ -43,7 +43,10 @@
         </section>
     </section>
     <section class="about"></section>
-    <footer></footer>
+    <footer class="main-footer flex direction-column content-center align-center">
+        <div class="logo"><img src="icons/logo.png" alt="memegen logo"></div>
+        <small>all rigths reserved 2020</small>
+    </footer>
     <script src="js/meme-service.js"></script>
     <script src="js/main.js"></script>
 </body>
