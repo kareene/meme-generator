@@ -7,7 +7,7 @@ const MEME_DEFAULT_STYLE = {
     color: '#ffffff',
     isStroke: true,
     font: 'Impact',
-    lineWidth:'6',
+    lineWidth: '6',
     strokeStyle: 'black'
 };
 const HIGHLIGHT_STYLE = {
@@ -17,6 +17,7 @@ const HIGHLIGHT_STYLE = {
 };
 var gCanvas;
 var gCtx;
+var gPrevOffset;
 
 function onInit() {
     gCanvas = document.querySelector('#meme-canvas');
@@ -44,6 +45,7 @@ function renderImgs() {
 
 function onCreateMeme(imgId) {
     document.querySelector('.gallery-container').style.display = 'none';
+    document.querySelector('.about').style.display = 'none';
     document.querySelector('.editor-container').style.display = 'flex';
     resizeCanvas();
     createMeme(imgId, MEME_DEFAULT_STYLE);
@@ -70,7 +72,6 @@ function renderMeme(forSave) {
         if (line.isStroke) gCtx.strokeText(text, posX, line.pos.y);
         gCtx.fillText(text, posX, line.pos.y);
     });
-    document.querySelector('[name="meme-text"]').focus();
 }
 
 function onUpdateControlsDisplay(meme) {
@@ -104,10 +105,18 @@ function onDeleteMemeLine() {
 }
 
 function onMoveMemeLine(ev) {
-    ev.preventDefault();
-    const { offsetX, offsetY, movementX, movementY } = ev
+    var offsetX, offsetY;
+    if (ev.type === 'touchmove') {
+        ev.preventDefault();
+        ({ offsetX, offsetY } = getCanvasPosFromTouch(ev));
+    } else {
+        ({ offsetX, offsetY } = ev);
+    }
     if (offsetX > 0 && offsetX < gCanvas.width && offsetY > 0 && offsetY < gCanvas.width) {
-        updateTextPosition(movementX, movementY);
+        let diffX = offsetX - gPrevOffset.x;
+        let diffY = offsetY - gPrevOffset.y;
+        gPrevOffset = { x: offsetX, y: offsetY }
+        updateTextPosition(diffX, diffY);
         renderMeme();
     }
 }
@@ -133,7 +142,7 @@ function onUpdateFont(value) {
 }
 
 function onOpenColorSelection() {
-    document.querySelector('[name="fill-color"]').click();
+    document.querySelector('[name="fill-color"]').touch();
 }
 
 function onUpdateFillColor(value) {
@@ -152,8 +161,15 @@ function onChangeLine(idx) {
 }
 
 function onCanvasPressed(ev) {
+    var offsetX, offsetY;
+    if (ev.type === 'touchstart') {
+        ev.preventDefault();
+        ({ offsetX, offsetY } = getCanvasPosFromTouch(ev));
+    } else {
+        ({ offsetX, offsetY } = ev);
+    }
+    gPrevOffset = { x: offsetX, y: offsetY }
     var lines = getMeme().lines;
-    var { offsetX, offsetY } = ev;
     var clickedLineIdx = lines.findIndex(line => {
         return ((offsetX > 0 + MEME_TEXT_MARGIN / 2) &&
             (offsetX < gCanvas.width - MEME_TEXT_MARGIN / 2) &&
@@ -162,14 +178,21 @@ function onCanvasPressed(ev) {
     });
     if (clickedLineIdx !== -1) {
         onChangeLine(clickedLineIdx);
-        gCanvas.addEventListener('mousemove', onMoveMemeLine);
-        gCanvas.addEventListener('touchmove', onMoveMemeLine);
+        if (ev.type === 'touchstart') {
+            gCanvas.addEventListener('touchmove', onMoveMemeLine);
+        } else {
+            gCanvas.addEventListener('mousemove', onMoveMemeLine);
+        }
     }
 }
 
-function onCanvasReleased() {
-    gCanvas.removeEventListener('mousemove', onMoveMemeLine);
-    gCanvas.removeEventListener('touchmove', onMoveMemeLine);
+function onCanvasReleased(ev) {
+    if (ev.type === 'touchend') {
+        ev.preventDefault();
+        gCanvas.removeEventListener('touchmove', onMoveMemeLine);
+    } else {
+        gCanvas.removeEventListener('mousemove', onMoveMemeLine);
+    }
     renderMeme();
 }
 
@@ -178,4 +201,11 @@ function onDownloadCanvas(elLink) {
     const data = gCanvas.toDataURL();
     elLink.href = data;
     elLink.download = 'meme.jpg';
+}
+
+function getCanvasPosFromTouch(ev) {
+    var rect = gCanvas.getBoundingClientRect();
+    var offsetX = Math.round(ev.touches[0].pageX - rect.left);
+    var offsetY = Math.round(ev.touches[0].pageY - rect.top);
+    return { offsetX, offsetY };
 }

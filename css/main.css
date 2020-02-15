@@ -210,7 +210,17 @@ button {
 /* about */
 
 .about {
-    display: none;
+    background-color: #fff;
+}
+
+.about-img {
+    width: 20rem;
+    height: 20rem;
+}
+
+.about-img img {
+    width: 100%;
+    border-radius: 100%;
 }
 
 /* footer */
@@ -260,10 +270,10 @@ button {
 
 /* media querys */
 
-@media (max-width: 740px) {
-    .container {
+@media (max-width: 830px) {
+    /* .container {
         padding: 10px;
-    }
+    } */
 
     .editor-container {
         flex-direction: column;
