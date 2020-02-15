@@ -433,6 +433,7 @@ a.social {
     .editor-img {
         flex-basis: 100%;
         padding-bottom: 10px;
+        text-align: center;
     }
     
     .editor-controls {
