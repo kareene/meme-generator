@@ -2,16 +2,18 @@
 
 const MEME_TEXT_MARGIN = 10;
 const MEME_DEFAULT_STYLE = {
-    size: 30,
-    align: 'left',
+    size: 40,
+    align: 'center',
     color: '#ffffff',
+    isStroke: true,
     font: 'Impact',
-    lineWidth:'5',
+    lineWidth:'6',
     strokeStyle: 'black'
 };
 const HIGHLIGHT_STYLE = {
     lineWidth: '2',
-    strokeStyle: 'blue'
+    strokeStyle: '#ff7f00',
+    fillStyle: '#e3e3e380'
 };
 var gCanvas;
 var gCtx;
@@ -50,11 +52,12 @@ function onCreateMeme(imgId) {
 
 function renderMeme(forSave) {
     var meme = getMeme();
-    onUpdateFormDisplay(meme);
+    onUpdateControlsDisplay(meme);
     var elImg = document.querySelector(`.img-${meme.selectedImgId}`);
     gCtx.drawImage(elImg, 0, 0, gCanvas.width, gCanvas.height);
     if (!meme.lines.length) return;
     meme.lines.forEach((line, idx) => {
+        if (idx === meme.selectedLineIdx && !forSave) onHighlightSelectedLine(line);
         gCtx.lineWidth = MEME_DEFAULT_STYLE.lineWidth;
         gCtx.strokeStyle = MEME_DEFAULT_STYLE.strokeStyle;
         let text = line.txt;
@@ -62,29 +65,32 @@ function renderMeme(forSave) {
         gCtx.font = `${line.size}px ${line.font}`;
         gCtx.textAlign = line.align;
         let posX = line.pos.x;
-        if (line.align === 'right') posX += (gCanvas.width - MEME_TEXT_MARGIN * 2);
-        else if (line.align === 'center') posX += (gCanvas.width / 2 - MEME_TEXT_MARGIN);
-        gCtx.strokeText(text, posX, line.pos.y);
+        if (line.align === 'left') posX -= (gCanvas.width / 2 - MEME_TEXT_MARGIN);
+        else if (line.align === 'right') posX += (gCanvas.width / 2 - MEME_TEXT_MARGIN);
+        if (line.isStroke) gCtx.strokeText(text, posX, line.pos.y);
         gCtx.fillText(text, posX, line.pos.y);
-        if (idx === meme.selectedLineIdx && !forSave) onHighlightSelectedLine(line);
     });
     document.querySelector('[name="meme-text"]').focus();
 }
 
-function onUpdateFormDisplay(meme) {
+function onUpdateControlsDisplay(meme) {
     var txt = (meme.lines.length) ? meme.lines[meme.selectedLineIdx].txt : '';
     var color = (meme.lines.length) ? meme.lines[meme.selectedLineIdx].color : MEME_DEFAULT_STYLE.color;
+    var font = (meme.lines.length) ? meme.lines[meme.selectedLineIdx].font : MEME_DEFAULT_STYLE.font;
     document.querySelector('[name="meme-text"]').value = txt;
     document.querySelector('[name="fill-color"]').value = color;
+    document.querySelector('.font-select').value = font;
 }
 
 function onHighlightSelectedLine(line) {
     gCtx.beginPath();
     gCtx.lineWidth = HIGHLIGHT_STYLE.lineWidth;
     gCtx.strokeStyle = HIGHLIGHT_STYLE.strokeStyle;
-    gCtx.rect(line.pos.x - MEME_TEXT_MARGIN / 2, line.pos.y - line.size - MEME_TEXT_MARGIN / 2,
+    gCtx.fillStyle = HIGHLIGHT_STYLE.fillStyle;
+    gCtx.rect(line.pos.x - gCanvas.width / 2 + MEME_TEXT_MARGIN / 2, line.pos.y - line.size - MEME_TEXT_MARGIN / 2,
         gCanvas.width - MEME_TEXT_MARGIN, line.size + MEME_TEXT_MARGIN);
     gCtx.stroke();
+    gCtx.fill();
 }
 
 function onAddMemeLine() {
@@ -97,9 +103,12 @@ function onDeleteMemeLine() {
     renderMeme();
 }
 
-function onMoveMemeLine(diffY) {
-    updateTextPosition(0, diffY);
-    renderMeme();
+function onMoveMemeLine(ev) {
+    const { offsetX, offsetY, movementX, movementY } = ev
+    if (offsetX > 0 && offsetX < gCanvas.width && offsetY > 0 && offsetY < gCanvas.width) {
+        updateTextPosition(movementX, movementY);
+        renderMeme();
+    }
 }
 
 function onUpdateMemeText(value) {
@@ -117,8 +126,22 @@ function onUpdateTextSize(diff) {
     renderMeme();
 }
 
+function onUpdateFont(value) {
+    updateFont(value);
+    renderMeme();
+}
+
+function onOpenColorSelection() {
+    document.querySelector('[name="fill-color"]').click();
+}
+
 function onUpdateFillColor(value) {
     updateFillColor(value);
+    renderMeme();
+}
+
+function onToggleStroke() {
+    toggleStroke();
     renderMeme();
 }
 
@@ -127,16 +150,24 @@ function onChangeLine(idx) {
     renderMeme();
 }
 
-function onCanvasClicked(ev) {
+function onCanvasPressed(ev) {
     var lines = getMeme().lines;
     var { offsetX, offsetY } = ev;
     var clickedLineIdx = lines.findIndex(line => {
-        return ((offsetX > line.pos.x - MEME_TEXT_MARGIN / 2) &&
+        return ((offsetX > 0 + MEME_TEXT_MARGIN / 2) &&
             (offsetX < gCanvas.width - MEME_TEXT_MARGIN / 2) &&
             (offsetY > line.pos.y - line.size - MEME_TEXT_MARGIN / 2) &&
             (offsetY < line.pos.y + MEME_TEXT_MARGIN / 2))
-    })
-    if (clickedLineIdx !== -1) onChangeLine(clickedLineIdx);
+    });
+    if (clickedLineIdx !== -1) {
+        onChangeLine(clickedLineIdx);
+        gCanvas.addEventListener('mousemove', onMoveMemeLine);
+    }
+}
+
+function onCanvasReleased() {
+    gCanvas.removeEventListener('mousemove', onMoveMemeLine);
+    renderMeme();
 }
 
 function onDownloadCanvas(elLink) {

@@ -1,5 +1,7 @@
+/* Typography */
+
 @font-face {
-    font-family: montserrat;
+    font-family: montserrat-regular;
     src: url(../fonts/Montserrat/Montserrat-Regular.ttf);
 }
 
@@ -9,21 +11,24 @@
 }
 
 @font-face {
-    font-family: montserrat-bold;
-    src: url(../fonts/Montserrat/Montserrat-Bold.ttf);
+    font-family: montserrat-medium;
+    src: url(../fonts/Montserrat/Montserrat-Medium.ttf);
 }
+
+/* Base */
 
 * {
     box-sizing: border-box;
 }
 
 html {
-    font-family: montserrat, sans-serif;
+    font-family: montserrat-regular, sans-serif;
     color: #040a2c;
 }
 
 body {
     margin: 0;
+    background-color: #e3e3e3;
 }
 
 a {
@@ -47,32 +52,35 @@ button {
     border: none;
     text-transform: none;
     cursor: pointer;
-    background-color: #fff;
 }
+
+/* Layout */
+
+.container {
+    max-width: 100%;
+    padding: 30px 50px;
+}
+
+/* header */
 
 .main-header {
     background-color: #ff7f00;
     height: 70px;
-    padding-left: 50px;
-    padding-right: 50px;
 }
 
+/* image gallery */
+
 .gallery-container {
-    background-color: #e3e3e3;
-    max-width: 100%;
-    padding: 30px 50px;
     display: block;
+    max-width: 100%;
 }
 
 .search {
     display: none;
-    /* margin-bottom: 30px; */
 }
 
 .images-container {
     display: grid;
-    /* grid-template-columns: repeat(auto-fill, 160px); */
-    /* grid-auto-rows: 160px; */
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     grid-auto-rows: 1fr;
     grid-gap: 25px;
@@ -92,16 +100,15 @@ button {
 }
 
 .images-container img {
-    height: 100%;
     width: 100%;
+    height: 100%;
     object-fit: cover;
 }
 
+/* meme editor */
+
 .editor-container {
-    height: 100vh;
-    width: 100vw;
     display: none;
-    background-color: #e3e3e3;
 }
 
 .editor-img {
@@ -110,24 +117,118 @@ button {
 
 .editor-controls {
     flex-basis: 50%;
+    padding-left: 85px;
 }
+
+.editor-controls-container {
+    width: 23.25rem;
+    height: 100%;
+}
+
+.editor-element {
+    background-color: #fff;
+    border-radius: 0.75rem;
+}
+
+.editor-btn {
+    width: 3.75rem;
+    height: 3.75rem;
+    padding: 0.625rem;
+    margin-bottom: 0.625rem;
+}
+
+.editor-btn:not(:last-child) {
+    margin-right: 0.8rem;
+}
+
+.editor-btn img {
+    width: 100%;
+}
+
+.editor-input {
+    width: 100%;
+    height: 3.75rem;
+    border: none;
+    font-size: 1.25rem;
+    padding: 1.3rem;
+    color: #000;
+    margin-bottom: 0.625rem;
+}
+
+.btn-line-1 {
+    margin-bottom: 2rem;
+}
+
+.btn-line-3 {
+    margin-bottom: 1.25rem;
+}
+
+.font-select {
+    width: 13.2rem;
+    height: 3.75rem;
+    border: none;
+    margin: none;
+    font-size: 1.25rem;
+    padding: 1.3rem;
+    color: #000;
+    margin-bottom: 0.625rem;
+    margin-right: 1.5rem;
+    border-radius: 0.75rem;
+}
+
+.sticker-container {
+    width: 100%;
+    height: 8.44rem;
+    margin-bottom: auto;
+}
+
+.arrow-btn {
+    background-color: #fff;
+    height: 3.75rem;
+    padding: 0.625rem;
+}
+
+.arrow-btn img {
+    height: 100%;
+}
+
+.share-btn {
+    width: 7.5rem;
+    height: 3.75rem;
+    background-color: #ff7f00;
+    border-radius: 0.75rem;
+    font-family: montserrat-medium;
+    color: #fff;
+    font-size: 1.25rem;
+    text-align: center;
+}
+
+.editor-controls-container > .share-btn {
+    align-self: flex-end;
+    margin-top: 0.625rem;
+}
+
+/* about */
 
 .about {
     display: none;
 }
 
-footer {
+/* footer */
+
+.main-footer {
     background-color: #ff7f00;
     height: 200px;
 }
 
-footer small {
+.main-footer small {
     font-family: montserrat-thin, sans-serif;
     color: #fff;
     font-size: 1rem;
 }
 
 /* helpers */
+
 .clean-list {
     padding: 0;
     margin: 0;
@@ -156,4 +257,66 @@ footer small {
 
 .flex.direction-column {
     flex-direction: column;
+}
+
+/* media querys */
+
+@media (max-width: 740px) {
+    .container {
+        padding: 10px;
+    }
+
+    .editor-container {
+        flex-direction: column;
+    }
+
+    .editor-img {
+        flex-basis: 100%;
+        padding-bottom: 10px;
+    }
+    
+    .editor-controls {
+        flex-basis: 100%;
+        padding-left: 0;
+    }
+
+    .editor-controls-container {
+        width: 100%;
+    }
+
+    .editor-btn {
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+
+    .editor-input {
+        width: 100%;
+        height: 2.5rem;
+    }
+
+    .btn-line-1, .btn-line-2, .btn-line-3 {
+        padding-left: 1rem;
+        padding-right: 1rem;
+        margin-bottom: 0;
+    }
+    
+    .font-select {
+        height: 2.5rem;
+    }
+    
+    .sticker-container {
+        height: 3.44rem;
+        margin-bottom: 0.875rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+    }
+
+    .arrow-btn {
+        height: 2.5rem;
+    }
+
+    .editor-controls-container > .share-btn {
+        align-self: auto;
+        margin-top: 0;
+    }
 }

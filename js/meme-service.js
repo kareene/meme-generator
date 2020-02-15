@@ -39,17 +39,18 @@ function getMeme() {
     return gMeme;
 }
 
-function addMemeLine(defaultStyle, align) {
+function addMemeLine(defaultStyle, alignY) {
     var maxSize = getCanvasSize();
-    var x = maxSize.margin;
-    var y = (align === 'top') ? defaultStyle.size + maxSize.margin :
-        (align === 'bottom') ? maxSize.y - maxSize.margin : maxSize.y / 2;
+    var x = maxSize.x / 2;
+    var y = (alignY === 'top') ? defaultStyle.size + maxSize.margin :
+        (alignY === 'bottom') ? maxSize.y - maxSize.margin : maxSize.y / 2;
     gMeme.lines.push({
         txt: '',
         pos: { x, y },
         size: defaultStyle.size,
         align: defaultStyle.align,
         color: defaultStyle.color,
+        isStroke: defaultStyle.isStroke,
         font: defaultStyle.font
     });
     return gMeme.lines.length - 1;
@@ -70,16 +71,9 @@ function updateTextAlign(align) {
 }
 
 function updateTextPosition(diffX, diffY) {
-    var maxSize = getCanvasSize();
     var currLine = gMeme.lines[gMeme.selectedLineIdx];
-    if (currLine.pos.x + diffX > maxSize.margin &&
-        currLine.pos.x + diffX < maxSize.x - maxSize.margin) {
-        currLine.pos.x += diffX;
-    }
-    if (currLine.pos.y + diffY > maxSize.margin &&
-        currLine.pos.y + diffY < maxSize.y - maxSize.margin) {
-        currLine.pos.y += diffY;
-    }
+    currLine.pos.x += diffX;
+    currLine.pos.y += diffY;
 }
 
 function updateTextSize(diff) {
@@ -87,8 +81,16 @@ function updateTextSize(diff) {
     if (currLine.size + diff > 0) currLine.size += diff;
 }
 
+function updateFont(value) {
+    gMeme.lines[gMeme.selectedLineIdx].font = value;
+}
+
 function updateFillColor(value) {
     gMeme.lines[gMeme.selectedLineIdx].color = value;
+}
+
+function toggleStroke() {
+    gMeme.lines[gMeme.selectedLineIdx].isStroke = !gMeme.lines[gMeme.selectedLineIdx].isStroke;
 }
 
 function changeLine(idx) {
