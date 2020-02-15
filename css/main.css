@@ -444,13 +444,16 @@ a.social {
     }
 
     .btn-line-1, .btn-line-2, .btn-line-3 {
-        padding-left: 1rem;
-        padding-right: 1rem;
+        /* padding-left: 1rem;
+        padding-right: 1rem; */
         margin-bottom: 0;
     }
     
     .font-select {
+        width: 9.5rem;
         height: 2.5rem;
+        padding: 0;
+        margin-right: 1rem;
     }
     
     .sticker-container {
