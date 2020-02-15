@@ -9,16 +9,20 @@
 </head>
 
 <body onload="onInit()">
-    <header class="main-header container flex space-between align-center">
-        <img class="logo" src="icons/logo.png" alt="memegen logo">
-        <nav class="main-nav-container">
-            <ul class="clean-list">
-                <li><a href="#">Gallery</a></li>
-                <li><a href="#about">About</a></li>
+    <header class="main-header">
+        <nav class="main-nav-container container flex space-between align-center">
+            <div class="logo flex align-center content-center"><img src="icons/logo.png" alt="memegen logo"></div>
+            <div class="hamburger" onclick="onToggleMenu()">
+                <img class="open" src="icons/hamburger.png">
+                <img class="close" src="icons/close.png">
+            </div>
+            <ul class="main-nav clean-list flex">
+                <li><a href="#" class="nav-gallery active flex align-center" onclick="onOpenGallery()">Gallery</a></li>
+                <li><a href="#about" class="flex align-center" onclick="onOpenGallery()">About</a></li>
             </ul>
         </nav>
     </header>
-    <section class="gallery-container container">
+    <section id="gallery" class="gallery-container container">
         <section class="search"></section>
         <section class="images-container">
         </section>
@@ -26,8 +30,9 @@
     <section class="editor-container container">
         <section class="editor-img">
             <canvas id="meme-canvas" height="300" width="300"
-                onmousedown="onCanvasPressed(event)" onmouseup="onCanvasReleased(event)" onmouseout="onCanvasReleased(event)"
-                ontouchstart="onCanvasPressed(event)" ontouchend="onCanvasReleased(event)"></canvas>
+                onmousedown="onCanvasPressed(event)" onmouseup="onCanvasReleased(event)"
+                onmouseout="onCanvasReleased(event)" ontouchstart="onCanvasPressed(event)"
+                ontouchend="onCanvasReleased(event)" style="border: 1px solid #040a2c;"></canvas>
         </section>
         <section class="editor-controls">
             <div class="editor-controls-container flex direction-column align-center">
@@ -83,17 +88,22 @@
                     <button class="arrow-btn"><img src="icons/left.png"></button>
                     <button class="arrow-btn"><img src="icons/right.png"></button>
                 </section>
-                <button class="share-btn">Share</button>
-                <!-- <a href="#" onclick="onDownloadCanvas(this)" download="">Share</a> -->
+                <a href="#" onclick="onDownloadCanvas(this)" download=""><button class="share-btn">Share</button></a>
             </div>
         </section>
     </section>
-    <section id="about" class="about">
+    <section id="about" class="about flex align-center content-center">
         <div class="about-img">
             <img src="img/me.jpg">
         </div>
         <div class="about-info">
             <p class="name">Kareene Komet</p>
+            <p class="text">I am a student at misterbit coding academy, studing to become a fullstack developer. This is my second sprint project. Not great, but it is what it is.</p>
+            <div class="social-container">
+                <a class="social" href="https://www.linkedin.com/in/kareene-komet-975ba23/"><img src="icons/linkedin-logo.png"></a>
+                <a class="social" href="https://www.facebook.com/kareene.komet"><img src="icons/facebook-logo.png"></a>
+                <a class="social" href="https://www.github.com/kareene"><img src="icons/github-logo.png"></a>
+            </div>
         </div>
     </section>
     <footer class="main-footer flex direction-column content-center align-center">

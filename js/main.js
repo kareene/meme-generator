@@ -44,6 +44,7 @@ function renderImgs() {
 
 function onCreateMeme(imgId) {
     document.querySelector('.gallery-container').style.display = 'none';
+    document.querySelector('.nav-gallery').classList.remove('active');
     document.querySelector('.about').style.display = 'none';
     document.querySelector('.editor-container').style.display = 'flex';
     resizeCanvas();
@@ -204,4 +205,18 @@ function getCanvasPosFromTouch(ev) {
     var offsetX = Math.round(ev.touches[0].clientX - rect.left);
     var offsetY = Math.round(ev.touches[0].clientY - rect.top);
     return { offsetX, offsetY };
+}
+
+function onOpenGallery() {
+    var navGallery = document.querySelector('.nav-gallery');
+    if (navGallery.classList.contains('active')) return;
+    navGallery.classList.add('active');
+    document.body.classList.remove('menu-open');
+    document.querySelector('.gallery-container').style.display = 'block';
+    document.querySelector('.about').style.display = 'flex';
+    document.querySelector('.editor-container').style.display = 'none';
+}
+
+function onToggleMenu() {
+    document.body.classList.toggle('menu-open');
 }
