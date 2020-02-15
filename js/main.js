@@ -201,7 +201,7 @@ function onDownloadCanvas(elLink) {
 
 function getCanvasPosFromTouch(ev) {
     var rect = gCanvas.getBoundingClientRect();
-    var offsetX = Math.round(ev.touches[0].pageX - rect.left);
-    var offsetY = Math.round(ev.touches[0].pageY - rect.top);
+    var offsetX = Math.round(ev.touches[0].clientX - rect.left);
+    var offsetY = Math.round(ev.touches[0].clientY - rect.top);
     return { offsetX, offsetY };
 }

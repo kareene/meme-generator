@@ -163,6 +163,10 @@ button {
     margin-bottom: 1.25rem;
 }
 
+input[type="color"] {
+    display: none;
+}
+
 .font-select {
     width: 13.2rem;
     height: 3.75rem;
