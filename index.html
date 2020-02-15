@@ -12,13 +12,13 @@
     <header class="main-header">
         <nav class="main-nav-container container flex space-between align-center">
             <div class="logo flex align-center content-center"><img src="icons/logo.png" alt="memegen logo"></div>
-            <div class="hamburger" onclick="onToggleMenu()">
+            <div class="hamburger" onclick="onToggleNavMenu()">
                 <img class="open" src="icons/hamburger.png">
                 <img class="close" src="icons/close.png">
             </div>
             <ul class="main-nav clean-list flex">
                 <li><a href="#" class="nav-gallery active flex align-center" onclick="onOpenGallery()">Gallery</a></li>
-                <li><a onclick="onOpenGallery()" href="#about" class="flex align-center">About</a></li>
+                <li><a href="#about" class="flex align-center" onclick="onOpenGallery()">About</a></li>
             </ul>
         </nav>
     </header>

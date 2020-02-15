@@ -26,8 +26,13 @@ function onInit() {
 
 function resizeCanvas() {
     var elContainer = document.querySelector('.editor-img');
-    gCanvas.width = elContainer.offsetWidth;
-    gCanvas.height = elContainer.offsetWidth;
+    if (elContainer.offsetWidth > elContainer.offsetHeight) {
+        gCanvas.width = elContainer.offsetHeight;
+        gCanvas.height = elContainer.offsetHeight; 
+    } else {
+        gCanvas.width = elContainer.offsetWidth;
+        gCanvas.height = elContainer.offsetWidth;
+    }
 }
 
 function getCanvasSize() {
@@ -210,13 +215,15 @@ function getCanvasPosFromTouch(ev) {
 function onOpenGallery() {
     var navGallery = document.querySelector('.nav-gallery');
     if (navGallery.classList.contains('active')) return;
-    navGallery.classList.add('active');
     document.body.classList.remove('menu-open');
+    navGallery.classList.add('active');
     document.querySelector('.gallery-container').style.display = 'block';
     document.querySelector('.about').style.display = 'flex';
     document.querySelector('.editor-container').style.display = 'none';
 }
 
-function onToggleMenu() {
+function onToggleNavMenu() {
     document.body.classList.toggle('menu-open');
 }
+
+function onToggleShareModal() {}
