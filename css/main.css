@@ -150,7 +150,7 @@ button {
 
 .editor-container {
     display: none;
-    height: calc(100vh - 70px);
+    min-height: calc(100vh - 70px -200px);
     padding-top: 30px;
     padding-bottom: 30px;
 }
@@ -426,7 +426,6 @@ a.social {
     }
 
     .editor-container {
-        height: 100%;
         flex-direction: column;
     }
 
