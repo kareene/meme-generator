@@ -217,7 +217,7 @@ input[type="color"] {
     border: none;
     margin: none;
     font-size: 1.25rem;
-    padding: 1.3rem;
+    padding: 1rem;
     color: #000;
     margin-bottom: 0.625rem;
     margin-right: 1.5rem;
@@ -478,8 +478,10 @@ a.social {
         height: 2.5rem;
     }
 
-    .editor-controls-container > .share-btn {
+    .share-btn {
         margin-top: 0;
+        height: 3rem;
+        width: 6rem;
     }
 
     .editor-controls-container > a {
