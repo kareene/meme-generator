@@ -4,6 +4,7 @@ const NUM_OF_IMGS = 18;
 var gImgs = createImgs();
 
 var gMeme;
+var gPositionShift;
 
 function createImgs() {
     var imgs = [];
@@ -61,6 +62,20 @@ function deleteMemeLine() {
     changeLine();
 }
 
+function moveMemeLine(offsetX, offsetY) {
+    var currLine = gMeme.lines[gMeme.selectedLineIdx];
+    currLine.pos.x = offsetX + gPositionShift.x;
+    currLine.pos.y = offsetY + gPositionShift.y;
+}
+
+function savePositionShift(offsetX, offsetY) {
+    var currLine = gMeme.lines[gMeme.selectedLineIdx];
+    gPositionShift = {
+        x: currLine.pos.x - offsetX,
+        y: currLine.pos.y - offsetY
+    }
+}
+
 function updateMemeText(txt) {
     gMeme.lines[gMeme.selectedLineIdx].txt = txt;
 }
@@ -68,12 +83,6 @@ function updateMemeText(txt) {
 function updateTextAlign(align) {
     var currLine = gMeme.lines[gMeme.selectedLineIdx];
     currLine.align = align;
-}
-
-function updateTextPosition(diffX, diffY) {
-    var currLine = gMeme.lines[gMeme.selectedLineIdx];
-    currLine.pos.x += diffX;
-    currLine.pos.y += diffY;
 }
 
 function updateTextSize(diff) {

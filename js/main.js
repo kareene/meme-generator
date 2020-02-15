@@ -17,7 +17,6 @@ const HIGHLIGHT_STYLE = {
 };
 var gCanvas;
 var gCtx;
-var gPrevOffset;
 
 function onInit() {
     gCanvas = document.querySelector('#meme-canvas');
@@ -113,10 +112,7 @@ function onMoveMemeLine(ev) {
         ({ offsetX, offsetY } = ev);
     }
     if (offsetX > 0 && offsetX < gCanvas.width && offsetY > 0 && offsetY < gCanvas.width) {
-        let diffX = offsetX - gPrevOffset.x;
-        let diffY = offsetY - gPrevOffset.y;
-        gPrevOffset = { x: offsetX, y: offsetY }
-        updateTextPosition(diffX, diffY);
+        moveMemeLine(offsetX, offsetY);
         renderMeme();
     }
 }
@@ -142,7 +138,7 @@ function onUpdateFont(value) {
 }
 
 function onOpenColorSelection() {
-    document.querySelector('[name="fill-color"]').touch();
+    document.querySelector('[name="fill-color"]').click();
 }
 
 function onUpdateFillColor(value) {
@@ -168,7 +164,6 @@ function onCanvasPressed(ev) {
     } else {
         ({ offsetX, offsetY } = ev);
     }
-    gPrevOffset = { x: offsetX, y: offsetY }
     var lines = getMeme().lines;
     var clickedLineIdx = lines.findIndex(line => {
         return ((offsetX > 0 + MEME_TEXT_MARGIN / 2) &&
@@ -178,6 +173,7 @@ function onCanvasPressed(ev) {
     });
     if (clickedLineIdx !== -1) {
         onChangeLine(clickedLineIdx);
+        savePositionShift(offsetX, offsetY);
         if (ev.type === 'touchstart') {
             gCanvas.addEventListener('touchmove', onMoveMemeLine);
         } else {
