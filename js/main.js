@@ -104,6 +104,7 @@ function onDeleteMemeLine() {
 }
 
 function onMoveMemeLine(ev) {
+    ev.preventDefault();
     const { offsetX, offsetY, movementX, movementY } = ev
     if (offsetX > 0 && offsetX < gCanvas.width && offsetY > 0 && offsetY < gCanvas.width) {
         updateTextPosition(movementX, movementY);
@@ -162,11 +163,13 @@ function onCanvasPressed(ev) {
     if (clickedLineIdx !== -1) {
         onChangeLine(clickedLineIdx);
         gCanvas.addEventListener('mousemove', onMoveMemeLine);
+        gCanvas.addEventListener('touchmove', onMoveMemeLine);
     }
 }
 
 function onCanvasReleased() {
     gCanvas.removeEventListener('mousemove', onMoveMemeLine);
+    gCanvas.removeEventListener('touchmove', onMoveMemeLine);
     renderMeme();
 }
 

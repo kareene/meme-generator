@@ -14,7 +14,7 @@
         <nav class="main-nav-container">
             <ul class="clean-list">
                 <li><a href="#">Gallery</a></li>
-                <li><a href="#">About</a></li>
+                <li><a href="#about">About</a></li>
             </ul>
         </nav>
     </header>
@@ -26,7 +26,8 @@
     <section class="editor-container container">
         <section class="editor-img">
             <canvas id="meme-canvas" height="300" width="300" onmousedown="onCanvasPressed(event)"
-                onmouseup="onCanvasReleased()" onmouseout="onCanvasReleased()"></canvas>
+                onmouseup="onCanvasReleased()" onmouseout="onCanvasReleased()"
+                ontouchstart="onCanvasPressed(event)" ontouchend="onCanvasReleased()"></canvas>
         </section>
         <section class="editor-controls">
             <div class="editor-controls-container flex direction-column align-center">
@@ -87,7 +88,14 @@
             </div>
         </section>
     </section>
-    <section class="about"></section>
+    <section id="about" class="about">
+        <div class="about-img">
+            <img src="img/me.jpg">
+        </div>
+        <div class="about-info">
+            <p class="name">Kareene Komet</p>
+        </div>
+    </section>
     <footer class="main-footer flex direction-column content-center align-center">
         <div class="logo"><img src="icons/logo.png" alt="memegen logo"></div>
         <small>all rigths reserved 2020</small>
