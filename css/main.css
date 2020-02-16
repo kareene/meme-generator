@@ -137,6 +137,12 @@ img {
 .images-container img {
     cursor: pointer;
     border: 1px solid #040a2c;
+    filter: grayscale(100%);
+    transition: filter 0.3s;
+}
+
+.images-container img:hover {
+    filter: grayscale(0%);
 }
 
 /* meme editor */
