@@ -1,14 +1,15 @@
 'use strict';
 
-const MEME_TEXT_MARGIN = 10;
-const MEME_DEFAULT_STYLE = {
+const TEXT_MARGIN = 10;
+const DEFAULT_STYLE = {
     size: 40,
     align: 'center',
     color: '#ffffff',
     isStroke: true,
     font: 'Impact',
     lineWidth: '6',
-    strokeStyle: 'black'
+    strokeStyle: 'black',
+    text: 'Text Line'
 };
 const HIGHLIGHT_STYLE = {
     lineWidth: '2',
@@ -26,17 +27,17 @@ function onInit() {
 
 function resizeCanvas() {
     var elContainer = document.querySelector('.editor-img');
-    if (elContainer.offsetWidth > elContainer.offsetHeight) {
-        gCanvas.width = elContainer.offsetHeight;
-        gCanvas.height = elContainer.offsetHeight; 
-    } else {
+    // if (elContainer.offsetWidth > elContainer.offsetHeight) {
+    //     gCanvas.width = elContainer.offsetHeight;
+    //     gCanvas.height = elContainer.offsetHeight; 
+    // } else {
         gCanvas.width = elContainer.offsetWidth;
         gCanvas.height = elContainer.offsetWidth;
-    }
+    // }
 }
 
 function getCanvasSize() {
-    return { x: gCanvas.width, y: gCanvas.height, margin: MEME_TEXT_MARGIN }
+    return { x: gCanvas.width, y: gCanvas.height, margin: TEXT_MARGIN }
 }
 
 function renderImgs() {
@@ -53,7 +54,7 @@ function onCreateMeme(imgId) {
     document.querySelector('.about').style.display = 'none';
     document.querySelector('.editor-container').style.display = 'flex';
     resizeCanvas();
-    createMeme(imgId, MEME_DEFAULT_STYLE);
+    createMeme(imgId, DEFAULT_STYLE);
     renderMeme();
 }
 
@@ -65,15 +66,15 @@ function renderMeme(forSave) {
     if (!meme.lines.length) return;
     meme.lines.forEach((line, idx) => {
         if (idx === meme.selectedLineIdx && !forSave) onHighlightSelectedLine(line);
-        gCtx.lineWidth = MEME_DEFAULT_STYLE.lineWidth;
-        gCtx.strokeStyle = MEME_DEFAULT_STYLE.strokeStyle;
-        let text = line.txt;
+        gCtx.lineWidth = DEFAULT_STYLE.lineWidth;
+        gCtx.strokeStyle = DEFAULT_STYLE.strokeStyle;
+        let text = (line.txt) ? line.txt : DEFAULT_STYLE.text;
         gCtx.fillStyle = line.color;
         gCtx.font = `${line.size}px ${line.font}`;
         gCtx.textAlign = line.align;
         let posX = line.pos.x;
-        if (line.align === 'left') posX -= (gCanvas.width / 2 - MEME_TEXT_MARGIN);
-        else if (line.align === 'right') posX += (gCanvas.width / 2 - MEME_TEXT_MARGIN);
+        if (line.align === 'left') posX -= (gCanvas.width / 2 - TEXT_MARGIN);
+        else if (line.align === 'right') posX += (gCanvas.width / 2 - TEXT_MARGIN);
         if (line.isStroke) gCtx.strokeText(text, posX, line.pos.y);
         gCtx.fillText(text, posX, line.pos.y);
     });
@@ -81,8 +82,8 @@ function renderMeme(forSave) {
 
 function onUpdateControlsDisplay(meme) {
     var txt = (meme.lines.length) ? meme.lines[meme.selectedLineIdx].txt : '';
-    var color = (meme.lines.length) ? meme.lines[meme.selectedLineIdx].color : MEME_DEFAULT_STYLE.color;
-    var font = (meme.lines.length) ? meme.lines[meme.selectedLineIdx].font : MEME_DEFAULT_STYLE.font;
+    var color = (meme.lines.length) ? meme.lines[meme.selectedLineIdx].color : DEFAULT_STYLE.color;
+    var font = (meme.lines.length) ? meme.lines[meme.selectedLineIdx].font : DEFAULT_STYLE.font;
     document.querySelector('[name="meme-text"]').value = txt;
     document.querySelector('[name="fill-color"]').value = color;
     document.querySelector('.font-select').value = font;
@@ -93,15 +94,15 @@ function onHighlightSelectedLine(line) {
     gCtx.lineWidth = HIGHLIGHT_STYLE.lineWidth;
     gCtx.strokeStyle = HIGHLIGHT_STYLE.strokeStyle;
     gCtx.fillStyle = HIGHLIGHT_STYLE.fillStyle;
-    gCtx.rect(line.pos.x - gCanvas.width / 2 + MEME_TEXT_MARGIN / 2, line.pos.y - line.size - MEME_TEXT_MARGIN / 2,
-        gCanvas.width - MEME_TEXT_MARGIN, line.size + MEME_TEXT_MARGIN);
+    gCtx.rect(line.pos.x - gCanvas.width / 2 + TEXT_MARGIN / 2, line.pos.y - line.size - TEXT_MARGIN / 2,
+        gCanvas.width - TEXT_MARGIN, line.size + TEXT_MARGIN);
     gCtx.stroke();
     gCtx.fill();
 }
 
 function onAddMemeLine() {
-    var idx = addMemeLine(MEME_DEFAULT_STYLE);
-    onChangeLine(idx); // calls renderMeme()
+    addMemeLine(DEFAULT_STYLE);
+    renderMeme();
 }
 
 function onDeleteMemeLine() {
@@ -117,7 +118,7 @@ function onMoveMemeLine(ev) {
     } else {
         ({ offsetX, offsetY } = ev);
     }
-    if (offsetX > 0 && offsetX < gCanvas.width && offsetY > 0 && offsetY < gCanvas.width) {
+    if (offsetX > 0 && offsetX < gCanvas.width && offsetY > 0 && offsetY < gCanvas.height) {
         moveMemeLine(offsetX, offsetY);
         renderMeme();
     }
@@ -172,10 +173,10 @@ function onCanvasPressed(ev) {
     }
     var lines = getMeme().lines;
     var clickedLineIdx = lines.findIndex(line => {
-        return ((offsetX > 0 + MEME_TEXT_MARGIN / 2) &&
-            (offsetX < gCanvas.width - MEME_TEXT_MARGIN / 2) &&
-            (offsetY > line.pos.y - line.size - MEME_TEXT_MARGIN / 2) &&
-            (offsetY < line.pos.y + MEME_TEXT_MARGIN / 2))
+        return ((offsetX > 0 + TEXT_MARGIN / 2) &&
+            (offsetX < gCanvas.width - TEXT_MARGIN / 2) &&
+            (offsetY > line.pos.y - line.size - TEXT_MARGIN / 2) &&
+            (offsetY < line.pos.y + TEXT_MARGIN / 2))
     });
     if (clickedLineIdx !== -1) {
         onChangeLine(clickedLineIdx);
@@ -198,19 +199,21 @@ function onCanvasReleased(ev) {
     renderMeme();
 }
 
-function onDownloadCanvas(elLink) {
-    renderMeme('forSave');
-    const data = gCanvas.toDataURL();
-    elLink.href = data;
-    elLink.download = 'meme.jpg';
-}
-
 function getCanvasPosFromTouch(ev) {
     var rect = gCanvas.getBoundingClientRect();
     var offsetX = Math.round(ev.touches[0].clientX - rect.left);
     var offsetY = Math.round(ev.touches[0].clientY - rect.top);
     return { offsetX, offsetY };
 }
+
+function onDownloadCanvas(elLink) {
+    renderMeme('forSave');
+    const data = gCanvas.toDataURL();
+    elLink.href = data;
+    elLink.download = 'meme';
+}
+
+function onSaveMeme() {}
 
 function onOpenGallery() {
     var navGallery = document.querySelector('.nav-gallery');
@@ -225,5 +228,3 @@ function onOpenGallery() {
 function onToggleNavMenu() {
     document.body.classList.toggle('menu-open');
 }
-
-function onToggleShareModal() {}

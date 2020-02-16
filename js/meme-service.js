@@ -34,6 +34,7 @@ function createMeme(imgId, defaultStyle) {
     };
     addMemeLine(defaultStyle, 'top');
     addMemeLine(defaultStyle, 'bottom');
+    changeLine(0);
 }
 
 function getMeme() {
@@ -54,7 +55,7 @@ function addMemeLine(defaultStyle, alignY) {
         isStroke: defaultStyle.isStroke,
         font: defaultStyle.font
     });
-    return gMeme.lines.length - 1;
+    changeLine(gMeme.lines.length - 1);
 }
 
 function deleteMemeLine() {
@@ -110,3 +111,5 @@ function changeLine(idx) {
         if (gMeme.selectedLineIdx >= gMeme.lines.length) gMeme.selectedLineIdx = 0;
     }
 }
+
+function saveMeme() {}

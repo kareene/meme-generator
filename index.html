@@ -9,18 +9,16 @@
 </head>
 
 <body onload="onInit()">
-    <header class="main-header">
-        <nav class="main-nav-container container flex space-between align-center">
-            <div class="logo flex align-center content-center"><img src="icons/logo.png" alt="memegen logo"></div>
-            <div class="hamburger" onclick="onToggleNavMenu()">
-                <img class="open" src="icons/hamburger.png">
-                <img class="close" src="icons/close.png">
-            </div>
-            <ul class="main-nav clean-list flex">
-                <li><a href="#" class="nav-gallery active flex align-center" onclick="onOpenGallery()">Gallery</a></li>
-                <li><a href="#about" class="flex align-center" onclick="onOpenGallery()">About</a></li>
-            </ul>
-        </nav>
+    <header class="main-header container flex align-center space-between">
+        <div class="logo flex align-center content-center"><img src="icons/logo.png" alt="memegen logo"></div>
+        <div class="hamburger" onclick="onToggleNavMenu()">
+            <img class="open" src="icons/hamburger.png">
+            <img class="close" src="icons/close.png">
+        </div>
+        <ul class="main-nav clean-list flex">
+            <li><a href="#" class="nav-gallery active flex align-center" onclick="onOpenGallery()">Gallery</a></li>
+            <li><a href="#about" class="flex align-center" onclick="onOpenGallery()">About</a></li>
+        </ul>
     </header>
     <section id="gallery" class="gallery-container container">
         <section class="search"></section>
@@ -30,66 +28,64 @@
     </section>
     <section class="editor-container container">
         <section class="editor-img">
-            <canvas id="meme-canvas" height="300" width="300"
-                onmousedown="onCanvasPressed(event)" onmouseup="onCanvasReleased(event)"
-                onmouseout="onCanvasReleased(event)" ontouchstart="onCanvasPressed(event)"
-                ontouchend="onCanvasReleased(event)" style="border: 1px solid #040a2c;"></canvas>
+            <canvas id="meme-canvas" height="300" width="300" onmousedown="onCanvasPressed(event)"
+                onmouseup="onCanvasReleased(event)" onmouseout="onCanvasReleased(event)"
+                ontouchstart="onCanvasPressed(event)" ontouchend="onCanvasReleased(event)"
+                style="border: 1px solid #040a2c;"></canvas>
         </section>
-        <section class="editor-controls">
-            <div class="editor-controls-container flex direction-column align-center">
-                <input class="editor-element editor-input" type="text" name="meme-text" placeholder="Enter meme text"
+        <section class="editor-controls-container">
+            <div class="editor-controls">
+                <input class="editor-input editor-element" type="text" name="meme-text" placeholder="Enter meme text"
                     oninput="onUpdateMemeText(this.value)">
-                <section class="btn-line-1">
-                    <button class="editor-element editor-btn" title="Switch Line" onclick="onChangeLine()">
-                        <img src="icons/up-and-down-opposite-double-arrows-side-by-side.png">
-                    </button>
-                    <button class="editor-element editor-btn" title="Add Line" onclick="onAddMemeLine()">
-                        <img src="icons/add.png">
-                    </button>
-                    <button class="editor-element editor-btn" title="Delete Line" onclick="onDeleteMemeLine()">
-                        <img src="icons/trash.png">
-                    </button>
-                </section>
-                <section class="btn-line-2">
-                    <button class="editor-element editor-btn" title="Font Size" onclick="onUpdateTextSize(+2)">
-                        <img src="icons/increase font - icon.png">
-                    </button>
-                    <button class="editor-element editor-btn" title="Font Size" onclick="onUpdateTextSize(-2)">
-                        <img src="icons/decrease font - icon.png">
-                    </button>
-                    <button class="editor-element editor-btn" title="Align Left" onclick="onUpdateTextAlign('left')">
-                        <img src="icons/align-to-left.png">
-                    </button>
-                    <button class="editor-element editor-btn" title="Align Center" onclick="onUpdateTextAlign('center')">
-                        <img src="icons/center-text-alignment.png">
-                    </button>
-                    <button class="editor-element editor-btn" title="Align Right" onclick="onUpdateTextAlign('right')">
-                        <img src="icons/align-to-right.png">
-                    </button>
-                </section>
-                <section class="btn-line-3 flex">
-                    <select class="editor-element font-select" oninput="onUpdateFont(this.value)">
-                        <option value="Impact">Impact</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Courier">Courier New</option>
-                        <option value="cursive">Cursive</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Times-New-Roman">Times New Roman</option>
-                        <option value="Verdana">Verdana</option>
-                    </select>
-                    <button class="editor-element editor-btn" title="Text Stroke" onclick="onToggleStroke()">
-                        <img src="icons/text stroke.png">
-                    </button>
-                    <input type="color" name="fill-color" oninput="onUpdateFillColor(this.value)">
-                    <button class="editor-element editor-btn" title="Text Color" onclick="onOpenColorSelection()">
-                        <img src="icons/paint-board-and-brush.png">
-                    </button>
-                </section>
-                <section class="editor-element sticker-container flex space-between align-center">
-                    <button class="arrow-btn"><img src="icons/left.png"></button>
-                    <button class="arrow-btn"><img src="icons/right.png"></button>
-                </section>
-                <a href="#" onclick="onDownloadCanvas(this)" download=""><button class="share-btn">Share</button></a>
+                <button class="switch-line editor-element editor-btn" title="Switch Line" onclick="onChangeLine()">
+                    <img src="icons/up-and-down-opposite-double-arrows-side-by-side.png">
+                </button>
+                <button class="add-line editor-element editor-btn" title="Add Line" onclick="onAddMemeLine()">
+                    <img src="icons/add.png">
+                </button>
+                <button class="delete-line editor-element editor-btn" title="Delete Line" onclick="onDeleteMemeLine()">
+                    <img src="icons/trash.png">
+                </button>
+                <button class="increase-font editor-element editor-btn" title="Font Size"
+                    onclick="onUpdateTextSize(+2)">
+                    <img src="icons/increase font - icon.png">
+                </button>
+                <button class="decrease-font editor-element editor-btn" title="Font Size"
+                    onclick="onUpdateTextSize(-2)">
+                    <img src="icons/decrease font - icon.png">
+                </button>
+                <button class="align-left editor-element editor-btn" title="Align Left"
+                    onclick="onUpdateTextAlign('left')">
+                    <img src="icons/align-to-left.png">
+                </button>
+                <button class="align-center editor-element editor-btn" title="Align Center"
+                    onclick="onUpdateTextAlign('center')">
+                    <img src="icons/center-text-alignment.png">
+                </button>
+                <button class="align-right editor-element editor-btn" title="Align Right"
+                    onclick="onUpdateTextAlign('right')">
+                    <img src="icons/align-to-right.png">
+                </button>
+                <select class="font-select editor-element" oninput="onUpdateFont(this.value)">
+                    <option value="Impact">Impact</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Courier">Courier New</option>
+                    <option value="cursive">Cursive</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Times-New-Roman">Times New Roman</option>
+                    <option value="Verdana">Verdana</option>
+                </select>
+                <button class="text-stroke editor-element editor-btn" title="Text Stroke" onclick="onToggleStroke()">
+                    <img src="icons/text stroke.png">
+                </button>
+                <button class="text-color editor-element editor-btn" title="Text Color"
+                    onclick="onOpenColorSelection()">
+                    <img src="icons/paint-board-and-brush.png">
+                </button>
+                <input class="text-color" type="color" name="fill-color" oninput="onUpdateFillColor(this.value)">
+                <button class="save-btn share-btn editor-element flex align-center content-center" onclick="onSaveMeme()">Save</button>
+                <a class="download-btn share-btn editor-element flex align-center content-center" href="#"
+                    onclick="onDownloadCanvas(this)" download="">Download</a>
             </div>
         </section>
     </section>
@@ -99,9 +95,11 @@
         </div>
         <div class="about-info">
             <p class="name">Kareene Komet</p>
-            <p class="text">I am a student at misterbit coding academy, studing to become a fullstack developer. This is my second sprint project. Not great, but it is what it is.</p>
+            <p class="text">I am a student at misterbit coding academy, studing to become a fullstack developer. This is
+                my second sprint project. Not great, but it is what it is.</p>
             <div class="social-container">
-                <a class="social" href="https://www.linkedin.com/in/kareene-komet-975ba23/"><img src="icons/linkedin-logo.png"></a>
+                <a class="social" href="https://www.linkedin.com/in/kareene-komet-975ba23/"><img
+                        src="icons/linkedin-logo.png"></a>
                 <a class="social" href="https://www.facebook.com/kareene.komet"><img src="icons/facebook-logo.png"></a>
                 <a class="social" href="https://www.github.com/kareene"><img src="icons/github-logo.png"></a>
             </div>
