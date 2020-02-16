@@ -27,13 +27,13 @@ function onInit() {
 
 function resizeCanvas() {
     var elContainer = document.querySelector('.editor-img');
-    // if (elContainer.offsetWidth > elContainer.offsetHeight) {
-    //     gCanvas.width = elContainer.offsetHeight;
-    //     gCanvas.height = elContainer.offsetHeight; 
-    // } else {
+    if (elContainer.offsetWidth > elContainer.offsetHeight) {
+        gCanvas.width = elContainer.offsetHeight;
+        gCanvas.height = elContainer.offsetHeight; 
+    } else {
         gCanvas.width = elContainer.offsetWidth;
         gCanvas.height = elContainer.offsetWidth;
-    // }
+    }
 }
 
 function getCanvasSize() {
