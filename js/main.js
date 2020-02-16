@@ -25,21 +25,6 @@ function onInit() {
     renderImgs();
 }
 
-function resizeCanvas() {
-    var elContainer = document.querySelector('.editor-img');
-    if (elContainer.offsetWidth > elContainer.offsetHeight) {
-        gCanvas.width = elContainer.offsetHeight;
-        gCanvas.height = elContainer.offsetHeight; 
-    } else {
-        gCanvas.width = elContainer.offsetWidth;
-        gCanvas.height = elContainer.offsetWidth;
-    }
-}
-
-function getCanvasSize() {
-    return { x: gCanvas.width, y: gCanvas.height, margin: TEXT_MARGIN }
-}
-
 function renderImgs() {
     var imgs = getImgsForDisplay();
     var strHTMLs = imgs.map(img => {
@@ -56,6 +41,21 @@ function onCreateMeme(imgId) {
     resizeCanvas();
     createMeme(imgId, DEFAULT_STYLE);
     renderMeme();
+}
+
+function resizeCanvas() {
+    var elContainer = document.querySelector('.editor-img');
+    if (elContainer.offsetWidth > elContainer.offsetHeight) {
+        gCanvas.width = elContainer.offsetHeight;
+        gCanvas.height = elContainer.offsetHeight; 
+    } else {
+        gCanvas.width = elContainer.offsetWidth;
+        gCanvas.height = elContainer.offsetWidth;
+    }
+}
+
+function getCanvasSize() {
+    return { x: gCanvas.width, y: gCanvas.height, margin: TEXT_MARGIN }
 }
 
 function renderMeme(forSave) {
@@ -142,10 +142,6 @@ function onUpdateTextSize(diff) {
 function onUpdateFont(value) {
     updateFont(value);
     renderMeme();
-}
-
-function onOpenColorSelection() {
-    document.querySelector('[name="fill-color"]').click();
 }
 
 function onUpdateFillColor(value) {
