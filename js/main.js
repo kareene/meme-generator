@@ -20,7 +20,7 @@ var gCanvas;
 var gCtx;
 
 function onInit() {
-    gCanvas = document.querySelector('#meme-canvas');
+    gCanvas = document.querySelector('.meme-canvas');
     gCtx = gCanvas.getContext('2d');
     renderImgs();
 }
@@ -34,10 +34,12 @@ function renderImgs() {
 }
 
 function onCreateMeme(imgId) {
+    document.querySelector('.editor-container').style.display = 'flex';
     document.querySelector('.gallery-container').style.display = 'none';
     document.querySelector('.nav-gallery').classList.remove('active');
+    document.querySelector('.memes-container').style.display = 'none';
+    document.querySelector('.nav-memes').classList.remove('active');
     document.querySelector('.about').style.display = 'none';
-    document.querySelector('.editor-container').style.display = 'flex';
     resizeCanvas();
     createMeme(imgId, DEFAULT_STYLE);
     renderMeme();
@@ -214,10 +216,24 @@ function onSaveMeme() {}
 function onOpenGallery() {
     var navGallery = document.querySelector('.nav-gallery');
     if (navGallery.classList.contains('active')) return;
-    document.body.classList.remove('menu-open');
     navGallery.classList.add('active');
+    document.body.classList.remove('menu-open');
+    document.querySelector('.nav-memes').classList.remove('active');
     document.querySelector('.gallery-container').style.display = 'block';
+    document.querySelector('.memes-container').style.display = 'none';
     document.querySelector('.about').style.display = 'flex';
+    document.querySelector('.editor-container').style.display = 'none';
+}
+
+function onOpenSavedMemes() {
+    var navMemes = document.querySelector('.nav-memes');
+    if (navMemes.classList.contains('active')) return;
+    navMemes.classList.add('active');
+    document.body.classList.remove('menu-open');
+    document.querySelector('.nav-gallery').classList.remove('active');
+    document.querySelector('.memes-container').style.display = 'block';
+    document.querySelector('.gallery-container').style.display = 'none';
+    document.querySelector('.about').style.display = 'none';
     document.querySelector('.editor-container').style.display = 'none';
 }
 
