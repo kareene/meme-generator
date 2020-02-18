@@ -16,87 +16,16 @@
             <img class="close" src="icons/close.png">
         </div>
         <ul class="main-nav clean-list flex">
-            <li><a href="#" class="nav-gallery active flex align-center" onclick="onOpenGallery()">Gallery</a></li>
-            <li><a href="#" class="nav-memes flex align-center" onclick="onOpenSavedMemes()">Memes</a></li>
-            <li><a href="#about" class="flex align-center" onclick="onOpenGallery()">About</a></li>
+            <li><a href="#" class="nav-gallery active flex align-center" onclick="onOpenSection('gallery')">Gallery</a></li>
+            <li><a href="#" class="nav-memes flex align-center" onclick="onOpenSection('memes')">Memes</a></li>
+            <li><a href="#about" class="flex align-center" onclick="onOpenSection('gallery')">About</a></li>
         </ul>
     </header>
-    <article class="main-content">
-        <section class="gallery-container container">
-            <section class="search"></section>
-            <section>
-                <div class="images-container"></div>
-            </section>
-        </section>
-        <section class="memes-container container">
-            <div class="images-container"></div>
-        </section>
-        <section class="editor-container container">
-            <section class="editor-img">
-                <canvas class="meme-canvas" height="300" width="300" onmousedown="onCanvasPressed(event)"
-                    onmouseup="onCanvasReleased(event)" onmouseout="onCanvasReleased(event)"
-                    ontouchstart="onCanvasPressed(event)" ontouchend="onCanvasReleased(event)"
-                    style="border: 1px solid #040a2c;"></canvas>
-            </section>
-            <section class="editor-controls-container">
-                <div class="editor-controls">
-                    <input class="editor-input editor-element" type="text" name="meme-text"
-                        placeholder="Enter meme text" oninput="onUpdateMemeText(this.value)">
-                    <button class="switch-line editor-element editor-btn" title="Switch Line" onclick="onChangeLine()">
-                        <img src="icons/up-and-down-opposite-double-arrows-side-by-side.png">
-                    </button>
-                    <button class="add-line editor-element editor-btn" title="Add Line" onclick="onAddMemeLine()">
-                        <img src="icons/add.png">
-                    </button>
-                    <button class="delete-line editor-element editor-btn" title="Delete Line"
-                        onclick="onDeleteMemeLine()">
-                        <img src="icons/trash.png">
-                    </button>
-                    <button class="increase-font editor-element editor-btn" title="Font Size"
-                        onclick="onUpdateTextSize(+2)">
-                        <img src="icons/increase font - icon.png">
-                    </button>
-                    <button class="decrease-font editor-element editor-btn" title="Font Size"
-                        onclick="onUpdateTextSize(-2)">
-                        <img src="icons/decrease font - icon.png">
-                    </button>
-                    <button class="align-left editor-element editor-btn" title="Align Left"
-                        onclick="onUpdateTextAlign('left')">
-                        <img src="icons/align-to-left.png">
-                    </button>
-                    <button class="align-center editor-element editor-btn" title="Align Center"
-                        onclick="onUpdateTextAlign('center')">
-                        <img src="icons/center-text-alignment.png">
-                    </button>
-                    <button class="align-right editor-element editor-btn" title="Align Right"
-                        onclick="onUpdateTextAlign('right')">
-                        <img src="icons/align-to-right.png">
-                    </button>
-                    <select class="font-select editor-element" oninput="onUpdateFont(this.value)">
-                        <option value="Impact">Impact</option>
-                        <option value="Arial">Arial</option>
-                        <option value="Courier">Courier New</option>
-                        <option value="cursive">Cursive</option>
-                        <option value="Georgia">Georgia</option>
-                        <option value="Times-New-Roman">Times New Roman</option>
-                        <option value="Verdana">Verdana</option>
-                    </select>
-                    <button class="text-stroke editor-element editor-btn" title="Text Stroke"
-                        onclick="onToggleStroke()">
-                        <img src="icons/text stroke.png">
-                    </button>
-                    <button class="text-color editor-element editor-btn" title="Text Color">
-                        <img src="icons/paint-board-and-brush.png">
-                    </button>
-                    <input class="text-color" type="color" name="fill-color" oninput="onUpdateFillColor(this.value)">
-                    <button class="save-btn share-btn editor-element flex align-center content-center"
-                        onclick="onSaveMeme()">Save</button>
-                    <a class="download-btn share-btn editor-element flex align-center content-center" href="#"
-                        onclick="onDownloadCanvas(this)" download="">Download</a>
-                </div>
-            </section>
-        </section>
-        <section id="about" class="about flex align-center content-center">
+    <section class="gallery-container min-full-screen">
+        <section class="search"></section>
+        <section class="images-container container"></section>
+        <section class="about flex align-center content-center">
+            <a name="about"></a>
             <div class="about-img">
                 <img src="img/me.jpg">
             </div>
@@ -114,7 +43,73 @@
                 </div>
             </div>
         </section>
-    </article>
+    </section>
+    <section class="memes-container min-full-screen container">
+        <div class="images-container"></div>
+    </section>
+    <section class="editor-container min-full-screen container">
+        <section class="editor-img">
+            <canvas class="meme-canvas" height="300" width="300" onmousedown="onCanvasPressed(event)"
+                onmouseup="onCanvasReleased(event)" onmouseout="onCanvasReleased(event)"
+                ontouchstart="onCanvasPressed(event)" ontouchend="onCanvasReleased(event)"
+                style="border: 1px solid #040a2c;"></canvas>
+        </section>
+        <section class="editor-controls-container">
+            <div class="editor-controls">
+                <input class="editor-input editor-element" type="text" name="meme-text" placeholder="Enter meme text"
+                    oninput="onUpdateMemeText(this.value)">
+                <button class="switch-line editor-element editor-btn" title="Switch Line" onclick="onChangeLine()">
+                    <img src="icons/up-and-down-opposite-double-arrows-side-by-side.png">
+                </button>
+                <button class="add-line editor-element editor-btn" title="Add Line" onclick="onAddMemeLine()">
+                    <img src="icons/add.png">
+                </button>
+                <button class="delete-line editor-element editor-btn" title="Delete Line" onclick="onDeleteMemeLine()">
+                    <img src="icons/trash.png">
+                </button>
+                <button class="increase-font editor-element editor-btn" title="Font Size"
+                    onclick="onUpdateTextSize(+2)">
+                    <img src="icons/increase font - icon.png">
+                </button>
+                <button class="decrease-font editor-element editor-btn" title="Font Size"
+                    onclick="onUpdateTextSize(-2)">
+                    <img src="icons/decrease font - icon.png">
+                </button>
+                <button class="align-left editor-element editor-btn" title="Align Left"
+                    onclick="onUpdateTextAlign('left')">
+                    <img src="icons/align-to-left.png">
+                </button>
+                <button class="align-center editor-element editor-btn" title="Align Center"
+                    onclick="onUpdateTextAlign('center')">
+                    <img src="icons/center-text-alignment.png">
+                </button>
+                <button class="align-right editor-element editor-btn" title="Align Right"
+                    onclick="onUpdateTextAlign('right')">
+                    <img src="icons/align-to-right.png">
+                </button>
+                <select class="font-select editor-element" oninput="onUpdateFont(this.value)">
+                    <option value="Impact">Impact</option>
+                    <option value="Arial">Arial</option>
+                    <option value="Courier">Courier New</option>
+                    <option value="cursive">Cursive</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Times-New-Roman">Times New Roman</option>
+                    <option value="Verdana">Verdana</option>
+                </select>
+                <button class="text-stroke editor-element editor-btn" title="Text Stroke" onclick="onToggleStroke()">
+                    <img src="icons/text stroke.png">
+                </button>
+                <button class="text-color editor-element editor-btn" title="Text Color">
+                    <img src="icons/paint-board-and-brush.png">
+                </button>
+                <input class="text-color" type="color" name="fill-color" oninput="onUpdateFillColor(this.value)">
+                <button class="save-btn share-btn editor-element flex align-center content-center"
+                    onclick="onSaveMeme()">Save</button>
+                <a class="download-btn share-btn editor-element flex align-center content-center" href="#"
+                    onclick="onDownloadCanvas(this)" download="">Download</a>
+            </div>
+        </section>
+    </section>
     <footer class="main-footer flex direction-column content-center align-center">
         <div class="logo"><img src="icons/logo.png" alt="memegen logo"></div>
         <small>all rigths reserved 2020</small>

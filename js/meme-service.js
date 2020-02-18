@@ -59,6 +59,7 @@ function addMemeLine(defaultStyle, alignY) {
 }
 
 function deleteMemeLine() {
+    if (!gMeme.lines.length) return;
     gMeme.lines.splice(gMeme.selectedLineIdx, 1);
     changeLine();
 }
@@ -77,29 +78,19 @@ function savePositionShift(offsetX, offsetY) {
     }
 }
 
-function updateMemeText(txt) {
-    gMeme.lines[gMeme.selectedLineIdx].txt = txt;
-}
-
-function updateTextAlign(align) {
-    var currLine = gMeme.lines[gMeme.selectedLineIdx];
-    currLine.align = align;
+function updateMeme(key, value) {
+    if (!gMeme.lines.length) return;
+    gMeme.lines[gMeme.selectedLineIdx][key] = value;
 }
 
 function updateTextSize(diff) {
+    if (!gMeme.lines.length) return;
     var currLine = gMeme.lines[gMeme.selectedLineIdx];
     if (currLine.size + diff > 0) currLine.size += diff;
 }
 
-function updateFont(value) {
-    gMeme.lines[gMeme.selectedLineIdx].font = value;
-}
-
-function updateFillColor(value) {
-    gMeme.lines[gMeme.selectedLineIdx].color = value;
-}
-
 function toggleStroke() {
+    if (!gMeme.lines.length) return;
     gMeme.lines[gMeme.selectedLineIdx].isStroke = !gMeme.lines[gMeme.selectedLineIdx].isStroke;
 }
 

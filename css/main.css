@@ -75,7 +75,7 @@ img {
     padding: 0 50px;
 }
 
-.main-content {
+.min-full-screen {
     min-height: calc(100vh - 70px - 150px);
 }
 
@@ -123,16 +123,13 @@ img {
 
 /* image gallery */
 
-.gallery-container {
-    padding-top: 30px;
-    padding-bottom: 30px;
-}
-
 .search {
     display: none;
 }
 
 .images-container {
+    padding-top: 30px;
+    padding-bottom: 30px;
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-gap: 20px;
@@ -147,6 +144,12 @@ img {
 
 .images-container img:hover {
     filter: grayscale(0%);
+}
+
+/* saved memes */
+
+.memes-container {
+    display: none;
 }
 
 /* meme editor */
@@ -400,6 +403,15 @@ a.social {
     .about-info .text {
         max-width: 400px;
     }
+
+    .editor-container {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .editor-controls-container {
+        margin-left: 20px;
+    }
 }
 
 @media (max-width: 740px) {
@@ -490,8 +502,8 @@ a.social {
     }
     
     .about-img {
-        width: 160px;
-        height: 160px;
+        width: 200px;
+        height: 200px;
         margin-right: 0;
         margin-bottom: 1.44rem;
     }
